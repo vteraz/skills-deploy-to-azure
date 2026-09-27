@@ -42,7 +42,7 @@ jobs:
         with:
           name: webpack artifacts
           path: public/
-  build-docker-image:
+  Build-Docker-Image:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -56,9 +56,9 @@ jobs:
       - name: Log in GHCR
         uses: docker/login-action@v3
         with:
-          registry: ${{ .env.IMAGE_REGISTRY_URL }}
+          registry: ${{ env.IMAGE_REGISTRY_URL }}
           username: ${{ github.actor }}
-          password: ${{ secret.CR_PAT }}
+          password: ${{ secrets.CR_PAT }}
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -73,9 +73,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  deploy-to-azure:
+  Deploy-to-Azure:
     runs-on: ubuntu-latest
-    needs: build-docker-image
+    needs: Build-Docker-Image
     steps:
       - name: Login via Azure CLI
         uses: azure/login@v2
