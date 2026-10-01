@@ -61,7 +61,7 @@ jobs:
           password: ${{ secrets.CR_PAT }}
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{env.IMAGE_REGISTRY_URL}}/${{github.repository}}/${{env.DOCKER_IMAGE_NAME}}
           tags: |
